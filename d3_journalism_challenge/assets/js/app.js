@@ -18,9 +18,6 @@ d3.csv("../assets/data/data.csv").then(function (data) {
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
 
-    // var svgGroup = svg.append("g")
-    //     .attr("transform", `translate(${margin.left},${margin.top})`),
-
     //set x axis
     var x = d3.scaleLinear()
         .domain(d3.extent(data.map(d => d.poverty)))
@@ -50,7 +47,7 @@ d3.csv("../assets/data/data.csv").then(function (data) {
     svg.append("text")
         .attr("text-anchor", "middle")
         .attr("transform", "rotate(-90)")
-        .attr("x", (height / 2) * -1)
+        .attr("x", (height) * -1)
         .attr("dy", -40)
         .text("Healthcare (%)");
 
