@@ -1,12 +1,11 @@
 // import csv.data
-d3.csv("../assets/data/data.csv").then(function (data) {
+d3.csv("assets/data/data.csv").then(function (data) {
     // format used data as numbers
     data.forEach(d => {
         d.poverty = +d.poverty;
         d.healthcare = +d.healthcare;
-        //console.log(data);
-    })
-
+        console.log(data);
+    });
     //set-up my margins
     var margin = { top: 10, right: 30, bottom: 60, left: 60 },
         width = 700 - margin.left - margin.right,
@@ -17,6 +16,8 @@ d3.csv("../assets/data/data.csv").then(function (data) {
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left +"," + margin.top +")");
 
     //set x axis
     var x = d3.scaleLinear()
@@ -31,7 +32,7 @@ d3.csv("../assets/data/data.csv").then(function (data) {
     svg.append("text")
         .attr("text-anchor", "middle")
         .attr("x", width / 2)
-        .attr("y", height + 40)
+        .attr("y", height +40)
         .text("Poverty (%)");
 
     // add y axis
@@ -40,15 +41,14 @@ d3.csv("../assets/data/data.csv").then(function (data) {
         .range([height, 0]);
 
     svg.append("g")
-        .attr("transform", "translate(0, 1000)")
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(y)),
 
     // add y label
     svg.append("text")
         .attr("text-anchor", "middle")
         .attr("transform", "rotate(-90)")
-        .attr("x", (height) * -1)
-        .attr("dy", -40)
+        .attr("x", (height / 2) * -1)
+        .attr("y", -30)
         .text("Healthcare (%)");
 
     // create dots variable
@@ -62,7 +62,7 @@ d3.csv("../assets/data/data.csv").then(function (data) {
         .attr("cx", d => x(d.poverty))
         .attr("cy", d => y(d.healthcare))
         .attr("r", 8)
-        .style("fill", "blue");
+        .style("fill", "blue"),
 
     // add text to gdots
     gdots.append("text")
@@ -72,7 +72,4 @@ d3.csv("../assets/data/data.csv").then(function (data) {
         .attr("dx", -5)
         .attr("dy", 2)
         .style("font-size", "7px");
-    //Catch error
-}).catch(e => {
-    console.log(e);
 });
